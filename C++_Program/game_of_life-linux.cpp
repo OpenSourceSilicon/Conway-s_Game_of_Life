@@ -1,7 +1,6 @@
 #include "iostream"
-#include "unistd.h"
-//#include "windows.h"      //for Sleep()
-//#include "stdlib.h"     //for srand(), rand()
+#include "unistd.h"      //for Sleep()
+#include "curses.h"
 //#include "time.h"       //for time()
 using namespace std;
 
@@ -9,8 +8,7 @@ const int N=21;           //Grid of size N*M 21
 const int M=79;           //Grid of size N*M 79
 
 void updtgrid(int[N][M],int[N][M]);
-void printgrid(int[N][M]);
-
+void printgrid(int[N][M],int[N][M]);
 int main()
 {
 
@@ -41,24 +39,23 @@ int main()
       //for(int i=0;i<1;i++)
        	{
 			updtgrid(grid1,grid2);
-			printgrid(grid2);
-			//Sleep(200);
+			printgrid(grid1,grid2);
+			sleep(1);
 	}
 	
 	return 0;
 }
-void printgrid(int grid2[N][M])
+void printgrid(int grid1[N][M], int grid2[N][M])
 {
-    sleep(1);
-    cout << "\033[2J\033[1;1H\n";
-    for(int i=0;i<N;i++){
+	for(int i=0;i<N;i++)
 		for(int j=0;j<M;j++)
-                {
-					if(grid2[i][j]==1) cout<<"O";//(char)254u;
-					else cout << " ";
+			if(grid1[i][j]!=grid2[i][j])
+				{
+					move(j,i);
+					refresh();
+					if(grid2[i][j]==1) cout<<"O";
+					else cout<<" ";
 				}
-		cout << std::endl;
-    }
 }
 
 void updtgrid(int grid1[N][M], int grid2[N][M])
