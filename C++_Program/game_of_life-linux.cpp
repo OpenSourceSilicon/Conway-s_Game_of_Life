@@ -1,5 +1,6 @@
 #include "iostream"
-#include "windows.h"      //for Sleep()
+#include "unistd.h"
+//#include "windows.h"      //for Sleep()
 //#include "stdlib.h"     //for srand(), rand()
 //#include "time.h"       //for time()
 using namespace std;
@@ -8,8 +9,7 @@ const int N=21;           //Grid of size N*M 21
 const int M=79;           //Grid of size N*M 79
 
 void updtgrid(int[N][M],int[N][M]);
-void printgrid(int[N][M],int[N][M]);
-void setCursorPosition(int,int);
+void printgrid(int[N][M]);
 
 int main()
 {
@@ -41,20 +41,20 @@ int main()
       //for(int i=0;i<1;i++)
        	{
 			updtgrid(grid1,grid2);
-			printgrid(grid1,grid2);
-			Sleep(200);
+			printgrid(grid2);
+			//Sleep(200);
 	}
 	
 	return 0;
 }
-void printgrid(int grid1[N][M], int grid2[N][M])
+void printgrid(int grid2[N][M])
 {
+    sleep(1);
+    system("clear");
 	for(int i=0;i<N;i++)
 		for(int j=0;j<M;j++)
-			if(grid1[i][j]!=grid2[i][j])
-				{
-					setCursorPosition(j,i);
-					if(grid2[i][j]==1) cout<<(char)254u;
+                {
+					if(grid2[i][j]==1) cout<<"O";//(char)254u;
 					else cout<<" ";
 				}
 }
@@ -80,11 +80,4 @@ void updtgrid(int grid1[N][M], int grid2[N][M])
 				else if(alive[i][j]==3)grid2[i][j]=1;
 				else grid2[i][j]=0;
 			}
-}
-void setCursorPosition(int x, int y)
-{
-    static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    std::cout.flush();
-    COORD coord = { (SHORT)x, (SHORT)y };
-    SetConsoleCursorPosition(hOut, coord);
 }
