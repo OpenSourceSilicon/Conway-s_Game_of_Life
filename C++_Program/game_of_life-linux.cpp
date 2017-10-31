@@ -50,13 +50,15 @@ int main()
 void printgrid(int grid2[N][M])
 {
     sleep(1);
-    system("clear");
-	for(int i=0;i<N;i++)
+    cout << "\033[2J\033[1;1H\n";
+    for(int i=0;i<N;i++){
 		for(int j=0;j<M;j++)
                 {
 					if(grid2[i][j]==1) cout<<"O";//(char)254u;
-					else cout<<" ";
+					else cout << " ";
 				}
+		cout << std::endl;
+    }
 }
 
 void updtgrid(int grid1[N][M], int grid2[N][M])
